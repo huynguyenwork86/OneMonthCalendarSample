@@ -15,6 +15,9 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+        debug{
+
+        }
     }
 }
 
@@ -26,5 +29,9 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
-    implementation project(':onemonthcalendarview')
+//    implementation project(':onemonthcalendarview')
+    implementation 'com.github.huynguyenwork86:onemonthcalendarsample:v1.1'
+
+    //search huynguyenwork86/onemonthcalendarsample from https://jitpack.io/
+//    implementation 'com.github.huynguyenwork86:onemonthcalendarsample:1.0'
 }
