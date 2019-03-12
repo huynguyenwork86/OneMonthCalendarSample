@@ -1,0 +1,11 @@
+<resources>
+    <declare-styleable name="CustomCalendarView">
+        <attr name="textColor" format="color" />
+        <attr name="todayBackgroundColor" format="color" />
+        <attr name="selectedBackgroundColor" format="color" />
+        <attr name="displayStyle" format="enum">
+            <enum name="shortDisplay" value="0" />
+            <enum name="fullDisplay" value="1" />
+        </attr>
+    </declare-styleable>
+</resources>
