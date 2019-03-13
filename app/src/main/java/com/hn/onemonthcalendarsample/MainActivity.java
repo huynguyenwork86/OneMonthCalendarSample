@@ -33,17 +33,17 @@ public class MainActivity extends AppCompatActivity {
                     type = 0;
                     mButton.setText("FULL");
                 }
-                customCalendarView.setDisplayType(type);
-                customCalendarView.refresh();
+                customCalendarView.setDisplayType(type, true);
             }
         });
-        customCalendarView.setDisplayType(type);
+        customCalendarView.setDisplayType(type, false);
         List<Integer>selectedDates = new ArrayList<>();
         selectedDates.add(3);
         selectedDates.add(5);
         selectedDates.add(10);
         selectedDates.add(13);
+        selectedDates.add(15);
         selectedDates.add(16);
-        customCalendarView.refresh(selectedDates);
+        customCalendarView.setSelected(selectedDates, true);
     }
 }

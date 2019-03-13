@@ -21,16 +21,16 @@ public class CalendarUtil {
         Logger.debug("dayofweek = " + dayOfWeek);
         Logger.debug("dayOfMonth = " + dayOfMonth);
 
-        for (int i = 1; i <= dayOfWeek; i++) {
+        int day;
+        for (int i = 1; i <= 7; i++) {
             DataObject object = new DataObject();
-            Integer day = dayOfMonth - dayOfWeek + i;
-            object.text = String.valueOf(day);
-            object.isSelected = (selectedDates != null && selectedDates.contains(day));
-            result.add(object);
-        }
-        for (int i = dayOfWeek + 1; i <= 7; i++) {
-            DataObject object = new DataObject();
-            Integer day = i + dayOfMonth;
+            if(i <= dayOfWeek){
+                day = dayOfMonth - dayOfWeek + i;
+                object.isToday = (i == dayOfWeek);
+            }
+            else{
+                day = i + dayOfMonth;
+            }
             object.text = String.valueOf(day);
             object.isSelected = (selectedDates != null && selectedDates.contains(day));
             result.add(object);
@@ -38,46 +38,34 @@ public class CalendarUtil {
 
         return result;
     }
+    private static int dayOfWeekOfTheFirstDayOfMonth(Date date){
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+
+        calendar.set(Calendar.DAY_OF_MONTH, 1);
+        return dayOfWeek(calendar.getTime());
+    }
 
     public static List<DataObject> buildData(Date date1, List<Integer> selectedDates){
         List<DataObject> result = new ArrayList<>();
         result.addAll(titles());
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(date1);
 
-        calendar.set(Calendar.DAY_OF_MONTH, 1);
-        Date date = calendar.getTime();
-        int day = dayOfWeek(date);
-        for (int i = 0; i < day - 1; i++) {
+        int indexOfTheFirstDayOfMonth = dayOfWeekOfTheFirstDayOfMonth(date1);
+        for (int i = 0; i < indexOfTheFirstDayOfMonth - 1; i++) {
             DataObject object = new DataObject();
             object.text = "";
             result.add(object);
         }
-        int total = numOfMonthDays(date);
+        int total = numOfMonthDays(date1);
+
+        int today = dayOfMonth(date1);
+
         for (int i = 1; i <= total; i++) {
             DataObject object = new DataObject();
             object.isSelected = (selectedDates != null && selectedDates.contains(i));
             object.text = "" + i;
+            object.isToday = (today == i);
             result.add(object);
-        }
-        Logger.debug("haha " + calendar.getTime().toString());
-        Logger.debug("dayOfWeek = " + dayOfWeek(date));
-
-        Logger.debug("stirng = " + dayOfWeekString(date));
-        Logger.debug("total day = " + numOfMonthDays(date));
-
-        String dateString = "2019-04-01";
-        Logger.debug("dayOfWeek = " + dayOfWeek(dateString));
-        Logger.debug(dateString + " is " + dayOfWeekString(dateString));
-        int i = 0;
-        while (i < result.size()) {
-            StringBuffer buff = new StringBuffer();
-            for (int idx = 0; idx < 7 && i < result.size(); idx++) {
-                buff.append(" " + result.get(i).text);
-                i++;
-
-            }
-            Logger.debug(buff.toString());
         }
         return result;
     }

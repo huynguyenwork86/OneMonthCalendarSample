@@ -35,7 +35,6 @@ public class CustomCalendarView extends LinearLayout {
     private int mTodayBackgroundColor = DEFAULT_TODAY_BACKGROUND_COLOR;
     private int mSelectedBackgroundColor = DEFAULT_SELECTED_BACKGROUND_COLOR;
     private Date mDate;
-    private List<Integer> mSelectedDates = new ArrayList<>();
     private RecyclerView mRecyclerView;
     CalendarAdapter mAdapter;
 
@@ -71,22 +70,22 @@ public class CustomCalendarView extends LinearLayout {
         a.recycle();
 
         mRecyclerView = new RecyclerView(getContext());
+        mAdapter = new CalendarAdapter(null);
+        mRecyclerView.setAdapter(mAdapter);
         LayoutParams layoutParams = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         mRecyclerView.setLayoutParams(layoutParams);
         mRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), SPAN_COUNT));
 
+
         addView(mRecyclerView);
     }
 
-    public int getDisplayType() {
-        return mDisplayType;
-    }
 
-    public void setDisplayType(int displayType) {
+    public void setDisplayType(int displayType, boolean forceRefresh) {
         if(displayType != DISPLAY_TYPE_FULL){
             displayType = DISPLAY_TYPE_SHORT;
         }
-        this.mDisplayType = displayType;
+        mAdapter.setDisplayMode(displayType, forceRefresh);
     }
 
     public int getTextColor() {
@@ -99,23 +98,7 @@ public class CustomCalendarView extends LinearLayout {
     public void setDate(Date aDate){
         mDate = aDate;
     }
-
-    public void refresh(){
-        if(mAdapter == null){
-            mAdapter = new CalendarAdapter(mTodayBackgroundColor, mSelectedBackgroundColor);
-            mRecyclerView.setAdapter(mAdapter);
-        }
-        mAdapter.refresh(mDisplayType, mDate, mSelectedDates);
-    }
-    public void refresh(List<Integer> selectedDates){
-        if(mAdapter == null){
-            mAdapter = new CalendarAdapter(mTodayBackgroundColor, mSelectedBackgroundColor);
-            mRecyclerView.setAdapter(mAdapter);
-        }
-        mSelectedDates.clear();
-        if(selectedDates != null){
-            mSelectedDates.addAll(selectedDates);
-        }
-        mAdapter.refresh(mDisplayType, mDate, selectedDates);
+    public void setSelected(List<Integer>dates, boolean forceRefresh){
+        mAdapter.setSelected(dates, forceRefresh);
     }
 }
