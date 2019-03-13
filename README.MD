@@ -24,6 +24,8 @@ buildTypes{
       release{ ... }
 }
 
+open in browser and click get it
+https://jitpack.io/#huynguyenwork86/onemonthcalendarsample/v1.2
 
 -----------------------------------------------------------------------------
 Create and publish a library to github using jitpack

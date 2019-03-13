@@ -24,7 +24,7 @@ class CalendarAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         DisplayParam result = new DisplayParam();
         result.mTodaySelectedTextColor = Color.parseColor("#444444");
         result.mTodayNotSelectedTextColor = Color.parseColor("#1CB0F6");
-        result.mSelectedTextColor = Color.parseColor("#444444");
+        result.mSelectedTextColor = Color.WHITE;
         result.mNotSelectedTextColor = Color.parseColor("#444444");
 
         result.mTodaySelectedBackgroundColor = Color.parseColor("#FA811B");
