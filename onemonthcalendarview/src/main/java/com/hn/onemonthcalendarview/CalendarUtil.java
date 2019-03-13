@@ -29,7 +29,7 @@ public class CalendarUtil {
                 object.isToday = (i == dayOfWeek);
             }
             else{
-                day = i + dayOfMonth;
+                day = (i + dayOfMonth - dayOfWeek);
             }
             object.text = String.valueOf(day);
             object.isSelected = (selectedDates != null && selectedDates.contains(day));
